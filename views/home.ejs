@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id='container'>
+            <p>
+                Welcome <%-user.name%>
+                <button id='profile'>My profile</button>
+            </p>
+        </div>
+        <script>
+            const getUserProfile = async (token)=>{
+                const response = await fetch('/users/me', {
+                    method:'GET',
+                    headers:{
+                        'Authorization': 'Bearer '+token
+                    }
+                }) 
+                return response.json()
+            }
+            const getprofile = document.getElementById('profile')
+            let tokens = []
+            tokens = <%- JSON.stringify(user.tokens)%>
+            console.log(tokens)
+            //console.log(tokens[tokens.length].token)
+            
+            getprofile.addEventListener('click', (e)=>{
+                e.preventDefault()
+                getUserProfile(tokens[tokens.length-1].token).then((response)=>{
+                    console.log("my response",response)
+                    setTimeout(() =>{
+                        document.location.href = '/users/me'
+                    }, 5000)
+
+                })
+            })
+        </script>
+    </body>
+
+</html>
