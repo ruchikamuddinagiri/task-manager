@@ -2,8 +2,8 @@ const express = require('express')
 const path = require('path')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
-
-
+const cookieParser = require('cookie-parser')
+ 
 require('./db/mongoose')
 
 
@@ -27,7 +27,13 @@ app.use(taskRouter)
 //set view engine
 app.set('view engine', 'ejs')
 const publicDirectoryPath = path.join(__dirname, '../public')
+
 app.use(express.static(publicDirectoryPath))
+
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 //set up server
 app.listen(port, () => {
