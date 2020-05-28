@@ -9,7 +9,25 @@ const taskSchema = new mongoose.Schema({
     completed: {
         type: Boolean,
         default: false
+    },
+    label: {
+        type: String,
+        required: true,
+        trim: true,
+        enum:['Personal', 'Work', 'Others']
+    },
+    taskStatus: {
+        type: String,
+        trim: true,
+        enum:['New', 'In Progress', 'Completed']
+    },
+    owner:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
+}, {
+    timestamps:true
 })
 
 

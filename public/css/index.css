@@ -1,0 +1,85 @@
+html,body{
+    background-image: url(http://getwallpapers.com/wallpaper/full/4/d/c/1206543-paper-wallpaper-1920x1080-for-mac.jpg#.Xs7JdioazYE.link);
+    background-size: cover;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    }
+    
+    
+    .card-header h3{
+        color: white;
+        }
+    .card{ 
+        height: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: auto;
+        background-color: rgba(0,0,0,0.5) !important;
+        }   
+
+    .input-group-prepend1{
+        
+        background-color: #FFC312;
+        color: black;
+        border:0 !important;
+        }
+
+    .input-group-prepend2{
+        
+        background-color: #FFC312;
+        color: black;
+        margin-top: 20px;
+    }
+
+    .login_btn{
+        margin-top: 10px;
+        color: black;
+        background-color: #FFC312;
+        }
+
+    .login_btn:hover{
+        color: black;
+        background-color: white;
+        }
+
+    #password{
+        margin-top: 20px;
+    }
+    .links{
+        color: white;
+    }
+    .ml5 {
+        position: relative;
+        font-weight: 300;
+        font-size: 4.5em;
+        color: #402d2d;
+      }
+      
+      .ml5 .text-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-top: 0.1em;
+        padding-right: 0.05em;
+        padding-bottom: 0.15em;
+        line-height: 1em;
+      }
+      
+      .ml5 .line {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: 3px;
+        width: 100%;
+        background-color: #402d2d;
+        transform-origin: 0.5 0;
+      }
+      
+      .ml5 .letters {
+        font-weight: bold;
+        font-style: italic;
+        font-family: Arial, Helvetica, sans-serif;
+        display: inline-block;
+        opacity: 0;
+      }

@@ -3,13 +3,14 @@ const User = require('../models/user')
 
 const auth = async (req, res, next) => {
     console.log("in auth fn")
-    const token = req.header('cookie').replace('auth_token=', '')
-    console.log(token)
+    //const token = req.header('cookie').replace('auth_token=', '')
+    //console.log(token)
     try{
         
         //get the token from the request header
         const token = req.header('cookie').replace('auth_token=', '')
-        
+
+        //const token = req.header('Authorization').replace('Bearer ', '')
         console.log(token)
 
         //decode the token against the string provided for creating the sign in models/user.js
@@ -32,6 +33,7 @@ const auth = async (req, res, next) => {
         //do not make the route handler(routers/user.js) fetch the user again
         //set a new property on req called user and assign the constant 'user' to it
         console.log("authenticated")
+        req.token = token
         req.user = user
         //call next for the route handler to run
         next()

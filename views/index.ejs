@@ -2,13 +2,81 @@
 <html>
     <head>
         <title>Tasks</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
     </head>
     <body>
-        <form id='lo' method="POST">
-            <input id='email' placeholder="Email address">
-            <input id='password' placeholder="Password">
-            <button id='login'>Login</button>
-        </form>
+        
+        <div class="text-center">
+            <h1 class="ml5">
+                <span class="text-wrapper">
+                  <span class="line line1"></span>
+                  <span class="letters letters-left">Task</span>
+                  <span class="letters letters-right">Manager</span>
+                  <span class="line line2"></span>
+                </span>
+              </h1>
+        </div>
+            <div class="d-flex justify-content-center">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Sign In</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id='lo' method="POST">
+                            <!--input id='email' placeholder="Email address"-->
+                            <div class="input-group">
+                                <div class="input-group-prepend1">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa-2x fa-fw"></i></span>
+                                </div>
+                                
+                                
+                                  <input id="email" type="text" class="form-control w-25" name="email" placeholder="Email">
+                                
+                              </div>
+                            <!--input id='password' placeholder="Password"-->
+                            <div class="input-group">
+                                <div class="input-group-prepend2">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-2x fa-fw"></i></span>
+                                </div>
+                                
+                                
+                                  <input id="password" type="password" class="form-control w-25" name="password" placeholder="Password">
+                                
+                              </div>
+                             
+                              <div class="d-flex justify-content-center">
+                                <button id='login' class="btn float-right login_btn">Login</button>
+                              </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-center links">
+                            Don't have an account? <a href="#">Sign Up</a>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="#">Forgot your password?</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        
+        
+        
         <script src="/js/index.js"></script>
     </body>
-</html>
+    </html>
+    
+    
+    
+        
+
+        
+    

@@ -25,13 +25,14 @@ router.post('/users', async (req, res) => {
         const token = await user.generateAuthToken()
         res.setHeader('Cache-Control', 'private');
         res.cookie('auth_token', token)
-        //res.sendFile(path.resolve(__dirname, '..', 'views', 'home.html'))
+        
         
         res.status(201).send({user, token})
     } catch(e){
         res.status(400).send(e)
     }
 })
+
 
 //log in
 router.post('/users/login', async (req, res) => {
@@ -42,7 +43,6 @@ router.post('/users/login', async (req, res) => {
         //create token for the user
         const token = await user.generateAuthToken()
         console.log(token)
-
         res.cookie('auth_token', token)
         console.log("login successful")
         res.send({user, token})
@@ -52,31 +52,43 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
+//logout
+router.post('/users/logout', auth, async(req,res)=>{
+    try{
+        req.user.tokens = req.user.tokens.filter((token)=>{
+            return token.token != req.token
+        })
+        await req.user.save()
+
+        res.send()
+    }catch(e){
+        res.status(500).send()
+    }
+})
+
+//logout all
+router.post('/users/logoutAll', auth, async(req, res) =>{
+    try{
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch(e){
+        res.status(500).send()
+    }
+    
+})
+
 //get user profile
 router.get('/users/me', auth, async(req, res) => {
-    console.log(req.header('cookie'))
+    //console.log(req.header('cookie'))
+    //res.send({user:req.user})
     res.render('../views/me.ejs', { user: req.user})
 })
 
 
-//get one user based on id
-router.get('/users/:id', async (req, res) => {
-    const id = req.params.id
-    console.log(id)
-    try{
-        const user = await User.findById(id)
-        if(!user){
-           return res.status(404).send()
-        }
-        res.render('../views/home.ejs',{user})
-    }catch(e){
-        res.status(500).send()
-    }
-
-})
 
 //update user by id
-router.patch('/users/:id', async(req, res) => {
+router.patch('/users/me', auth, async(req, res) => {
     //set up logic for allowed update paramaetres of a user
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'email', 'age', 'password']
@@ -92,17 +104,14 @@ router.patch('/users/:id', async(req, res) => {
 
         //for middleware to run
         //first, find the user by id
-        const user = await User.findById(req.params.id)
+        
         //then assign all the parameters coming from req.body
         //this is dynamic so use []
-        updates.forEach((update) => user[update] = req.body[update])
+        updates.forEach((update) => req.user[update] = req.body[update])
         //then save the user
-        await user.save()
+        await req.user.save()
 
-        if(!user){
-            return res.status(404).send()
-        }
-        res.send(user)
+        res.send(req.user)
         
     }catch(e){
         res.status(400).send()
@@ -110,14 +119,15 @@ router.patch('/users/:id', async(req, res) => {
 })
 //delete user
 
-router.delete('/users/:id', async (req, res) => {
+router.delete('/users/me', auth, async (req, res) => {
     try{
-        const user = await User.findByIdAndDelete(req.params.id)
-    if(!user){
-        //user not found
-        res.status(404).send()
-    }
-    res.send(user)
+    //     const user = await User.findByIdAndDelete(req.user._id)
+    // if(!user){
+    //     //user not found
+    //     res.status(404).send()
+    //}
+    await req.user.remove()
+    res.send(req.user)
     } catch(e){
         res.status(400).send()
     }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.0/jquery-migrate.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <%- include ('header.ejs'); %> 
+    </body>
+    <script>
+        const fetchTasks = async ()=>{
+            const response = await fetch('/tasks?completed=false',{
+                method:'GET'
+            })
+            if(response.status == 200){
+                return response.json()
+            }
+            else{
+                alert('Found no tasks')
+            }
+        }
+        document.onload = fetchTasks().then((response)=>{
+            for(i=0; i<response.length; i++){
+                console.log("i", response[i])
+            }
+        })
+    </script>
+</html>

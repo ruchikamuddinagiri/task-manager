@@ -1,33 +1,16 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.0/jquery-migrate.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </head>
     <body>
+    <%- include ('header.ejs'); %> 
         <div id='container'>
-            <p>
-                Welcome
-                <button id='profile'>My profile</button>
-                
-            </p>
         </div>
     </body>
     </html>
-        <script>
-            const getUserProfile = async ()=>{
-                const response = await fetch('/users/me', {
-                    method:'GET',
-                    'withCredentials': true
-                }) 
-                return response.json()
-            }
-            const getprofile = document.getElementById('profile')
-            getprofile.addEventListener('click', (e)=>{
-                e.preventDefault()
-                getUserProfile().then((response)=>{
-                    console.log("my response",response)
-                    setTimeout(() =>{
-                        document.location.href = '/users/me'
-                    }, 5000)
-
-                })
-            })
-        </script>
     
+            

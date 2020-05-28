@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Task = require('../models/task')
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -47,7 +48,28 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
+}, {
+    timestamps: true
 })
+
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
+//getpublic info
+
+userSchema.methods.toJSON = function(){
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+
 
 //auth token
 userSchema.methods.generateAuthToken = async function() {
@@ -72,7 +94,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user
 
 }
-
+//middleware
 //hash the password before saving
 //this fn will execute before(pre) the event 'save', i.e, before the user data is saved.
 userSchema.pre('save', async function(next) {
@@ -82,6 +104,13 @@ userSchema.pre('save', async function(next) {
         user.password  = await bcrypt.hash(user.password, 8)
     }
     next()
+})
+
+userSchema.pre('remove', async function(next){
+    const user = this
+    await Task.deleteMany({owner: user._id})
+    next()
+    
 })
 
 const User = mongoose.model('User', userSchema)
