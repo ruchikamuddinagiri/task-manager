@@ -1,5 +1,6 @@
 <html>
     <body>
+        
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="/home">Task Manager</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,21 +12,49 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/home">Home</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/users/me">My Profile</a>
-                </li>
                 <div class="dropdown show">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       My Tasks
                     </a>
                   
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <a class="dropdown-item" href="/addTask">Add Task</a>
-                      <a class="dropdown-item" href="/viewTask">View Task</a>
+                      <a class="dropdown-item" href="/addTask">Add a Task</a>
+                      <a class="dropdown-item" href="/viewTask">View your Tasks</a>
                     </div>
                   </div>
               </ul>
+              <button class="btn btn-danger my-2 my-sm-0" id="logout">Logout</button>
+
             </div>
           </nav>
+          <script>
+            const apiFetch = async (data)=>{
+            const response = await fetch('/users/logout', {
+                method:'POST',
+                credentials: 'same-origin',
+                headers:{
+                    'Content-type':'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            
+            if(response.status == 200){
+              
+              document.location.href = '/'
+            } else{
+              window.alert('Uh Oh! There was an error.')
+            }
+        }
+
+            const logout = document.getElementById('logout')
+            logout.addEventListener('click', (e)=>{
+              e.preventDefault()
+              apiFetch().then((response)=>{
+                
+              })
+            })
+
+            
+          </script>
     </body>
 </html>

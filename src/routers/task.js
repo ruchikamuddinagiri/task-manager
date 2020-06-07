@@ -16,6 +16,7 @@ router.get('/viewTask', auth, (req,res)=>{
 
 //add task
 router.post('/tasks', auth, async (req, res) => {
+    console.log(req.body)
     
     const task = new Task({
         ...req.body,
@@ -50,9 +51,18 @@ router.get('/tasks', auth, async (req, res) => {
     }
 
     if(req.query.sortBy){
-        const parts = req.query.sortBy.split(':')
-        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+        if(!Array.isArray(req.query.sortBy)){
+            const parts = req.query.sortBy.split('_')
+            sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+        }else{
+            for(i=0;i<req.query.sortBy.length;i++){
+                const parts = req.query.sortBy[i].split('_')
+                sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+            } 
+        }
+         
     }
+    
 
     if(req.query.label){
         match.label = req.query.label
@@ -88,21 +98,18 @@ router.get('/tasks/:id', auth, async (req, res) => {
         if(!task){
             return res.status(404).send()
         }
-        res.send(task)
+        res.render('../views/updateTask.ejs', {task:task})
     } catch(e) {
         res.status(500).send()
     }
     
 })
 
-//update task
-
-
 router.patch('/tasks/:id', auth, async (req, res) => {
     //check for valid updates
-    
+    console.log(req.body)
     const updates = Object.keys(req.body)
-    const allUpdates = ['description', 'completed']
+    const allUpdates = ['description', 'completed', 'label', 'taskStatus', 'dueDate']
     const isValidUpdate = updates.every((update) => allUpdates.includes(update))
 
     if(!isValidUpdate){
@@ -117,11 +124,13 @@ router.patch('/tasks/:id', auth, async (req, res) => {
             //send 404
             return res.status(404).send()
         }
-        console.log("task", task)
+        else{
         updates.forEach((update) => task[update] = req.body[update])
         await task.save()
         res.send(task)
+        }
     }catch(e){
+        console.log(e)
         //send 400
         res.status(400).send({error:e})
     }

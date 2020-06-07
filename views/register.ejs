@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tasks</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/register.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="sidenav">
+            <div id="blockoftext" class="login-main-text">
+                <div class="text-center">
+                    <p style="font-size: x-largevw;" class="ml5">
+                        <span class="text-wrapper">
+                          <span class="line line1"></span>
+                          <span class="letters letters-left">Task</span>
+                          <span class="letters letters-right">Manager</span>
+                          <span class="line line2"></span>
+                        </span>
+                    </p>
+                </div>               
+                <div id="heading1" class="text-center">
+                    <p class="lead" style="font-family:Comic Sans MS; font-size: xx-largevw;">
+                        <strong> Do you have trouble keeping track of your daily Todos?</strong>
+                    </p>
+                    <p style="font-size: xx-largevw; font-family:Comic Sans MS;">You've come to the right place.</p>
+                </div>
+                <p id="heading2" class="text-center" style="font-size: xx-largevw; font-family:Comic Sans MS;">
+                    Task Manager helps you
+                        <p id="p1" style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>Add New Tasks</p>
+                        <p id="p2" style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>Update Tasks</p>
+                        <p id="p3" style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>Categorize your tasks by setting labels</p>
+                        <p id="p4" style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>Keep track of Due dates for your tasks</p>
+                        <p id="p5" style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>View all your tasks at one place, in the way you desire</p>
+                </p>
+            </div>
+         </div>
+         <div class="main">
+            <div class="col-md-6 col-sm-12">
+               <div class="login-form">
+                   
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Register!</h3>
+                    </div>
+                    <div class="card-body">
+                            <form id='lo'>
+                                <div class="input-group">
+                                    <div class="input-group-prepend1">
+                                        <span class="input-group-addon"><i class="fa fa-user fa-2x fa-fw"></i></span>
+                                    </div>                                
+                                        <input id="name" type="text" class="form-control w-25" name="name" placeholder="Name" required>  
+                                </div>
+                                <div class="input-group" style="margin-top: 20px;">
+                                    <div class="input-group-prepend1">
+                                        <span class="input-group-addon"><i class="fa fa-user-circle fa-2x fa-fw"></i></span>
+                                    </div>                                
+                                        <input id="age" type="text" class="form-control w-25" name="age" placeholder="Age">  
+                                </div>
+                            <div class="input-group" style="margin-top: 20px;">
+                                <div class="input-group-prepend1">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa-2x fa-fw"></i></span>
+                                </div>                                
+                                    <input id="email" type="text" class="form-control w-25" name="email" placeholder="Email" required>  
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-prepend2">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-2x fa-fw"></i></span>
+                                </div>
+                                    <input id="password" type="password" class="form-control w-25" name="password" placeholder="Password" required>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center">
+                                <button id='register' class="btn float-right login_btn">Register</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div> 
+        
+        <script>
+            var perfEntries = performance.getEntriesByType("navigation");
+            if (perfEntries[0].type === "back_forward") {
+                location.reload(true);
+            }
+            const name = document.getElementById('name')
+            const age = document.getElementById('age')
+            const email = document.getElementById('email')
+            const password = document.getElementById('password')
+            var form = document.getElementById('lo');
+            var register = document.getElementById('register'); 
+
+            const registerUser = async (data)=>{
+            const response = await fetch('/users', {
+                method:'POST',
+                credentials: 'same-origin',
+                headers:{
+                    'Content-type':'application/json'
+                },
+                body: JSON.stringify(data)
+                })  
+                if(response.status == 201){
+                    return response.json()
+                }
+                else{
+                    window.alert('Please enter valid information')
+                }
+                
+            }
+
+            register.addEventListener('click', function(event) {
+                if (form.checkValidity() === false) {
+                event.preventDefault();
+                window.alert("Please complete the required fields")
+                event.stopPropagation();
+                form.reset()
+                }
+                
+                    form.classList.add('was-validated');
+                    const nameValue = name.value
+                    const ageValue = age.value
+                    const emailValue = email.value
+                    const passwordValue = password.value
+                    event.preventDefault()
+                    console.log(ageValue.length)
+                    if(ageValue.length == 0){
+                        console.log(age)
+                        registerUser({name:nameValue, email:emailValue, password:passwordValue}).then((response)=>{
+                            if(response){
+                                document.location.href = '/home'
+                            }
+                        })
+
+                    }
+                    else{
+                        registerUser({name:nameValue, age:ageValue, email:emailValue, password:passwordValue}).then((response)=>{
+                            console.log(response)
+                            if(response){
+                                document.location.href = '/home'
+                            }
+                            
+                        })
+
+                    }
+                
+                
+            }, false);
+        </script>
+    <script src="/js/register.js"></script>
+    </body>
+    </html>
+    

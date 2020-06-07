@@ -1,15 +1,117 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            html,body{
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            #particles {
+                width: 100%;
+                height: 100%;
+                top: 40px;
+                overflow: hidden;
+                }
+            canvas{
+                background-color: #16a085;
+                display: block;
+                position: absolute;
+                z-index: -100;
+                left: 0;
+                top: 55px;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background-size: cover;
+                background-attachment: fixed;      
+                background-repeat: repeat;
+            }
+           
+            @media only screen and (max-device-width: 480px) {
+                #operations{
+                    display: none;
+                    visibility: collapse;
+                }
+                #mobileRow{
+                    display: block;
+                }
+                #tasksStuff{
+                    height: 100%;
+                }
+            }
+
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.0/jquery-migrate.min.js"></script>
+        <script src="/js/jquery.particleground.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     </head>
     <body>
-    <%- include ('header.ejs'); %> 
-        <div id='container'>
+        <%- include ('header.ejs'); %> 
+        <br>
+        <div id="particles">
+            <div id="mobileRow" class="row" style="height: 100%;">
+                <div class="col" id="operations">
+                    <div class="d-flex h-100" style="flex-direction: column;">
+                        <div id="addTasksMobile" class="d-flex" style="flex-direction: column; background-color: #5cbdaa; opacity: 0.8;">
+                            <p id="addTasksMobile">
+                                <h1>Welcome to Task Manager!</h1>
+                                <p style="font-size: xx-large;">Add New Tasks here</p>
+                                <p style="font-size: large;">Task Manager provides a very easy way to add new tasks.</p>
+                                <ul>
+                                    <li>Add your task description</li>
+                                    <li>Categorise your tasks by using labels</li>
+                                    <li>Add a Due Date to your task</li>
+                                </ul>
+                            </p>
+                            <a href='/addTask'><button class="btn btn-primary">Add Task</button></a>
+                        </div>
+                        <br>
+                        <div class="d-flex" style="flex-direction: column; background-color: #5cbdaa; opacity: 0.8;">
+                            <p>
+                                <p style="font-size: xx-large;">View and Update your Tasks here</p>
+                            </p>
+                            <a href='/viewTask'><button class="btn btn-primary">Update Task</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" id="tasksStuff">
+                    <div>
+                        <h1>Task Bulletin<h1>
+                    </div>
+                    <button  class="btn btn-dark" id="new">Newest</button>
+                    <button  class="btn btn-dark" id="old">Oldest</button>
+                    <button  class="btn btn-dark" id="personal">Personal</button>
+                    <button  class="btn btn-dark" id="work">Work</button>
+                    <button  class="btn btn-dark" id="others">Others</button>
+                    <button  class="btn btn-dark" id="completed">Archived</button>
+                    <div id="tasksdiv"></div>
+                </div>
+            </div>
         </div>
+    <script>
+        var perfEntries = performance.getEntriesByType("navigation");
+            if (perfEntries[0].type === "back_forward") {
+                location.reload(true);
+            }
+        window.onload = function(){
+            
+            if(document.cookie.length == 0){
+                document.location.href = '/'
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+        particleground(document.getElementById('particles'), {
+        dotColor: '#5cbdaa',
+        lineColor: '#5cbdaa'
+        });
+        })
+    </script>
+
+    <script src='/js/home.js'></script>
     </body>
     </html>
     

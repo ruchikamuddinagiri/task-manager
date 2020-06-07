@@ -40,7 +40,8 @@ const auth = async (req, res, next) => {
 
 
     } catch (e){
-        res.status(401).send('Please authenticate!')
+        res.status(401).redirect('/')
+        //res.status(401).send('Please authenticate!')
     }
     
 }

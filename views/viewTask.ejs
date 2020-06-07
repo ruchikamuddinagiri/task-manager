@@ -1,30 +1,119 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.0/jquery-migrate.min.js"></script>
+        <script src="/js/jquery.particleground.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <style>
+            canvas{
+                background-color: #16a085;
+                display: block;
+                position: absolute;
+                z-index: -100;
+                left: 0;
+                top: 121;
+                background-size: cover;
+                background-attachment: fixed;  
+                overflow-x: scroll;     
+                background-repeat: repeat;         
+            }   
+        </style>
     </head>
-    <body>
-        <%- include ('header.ejs'); %> 
-    </body>
-    <script>
-        const fetchTasks = async ()=>{
-            const response = await fetch('/tasks?completed=false',{
-                method:'GET'
-            })
-            if(response.status == 200){
-                return response.json()
+    <body style="background-color: #16a085;">
+        
+        <%- include ('header.ejs'); %>
+        <br>
+        <h2>Your Task Gallery: View and Update your tasks</h2>
+        <p >Click on any of the filter buttons below to filter your tasks arranged according to your due dates. You can also toggle your selection. Click on the 'FILTER' button to get your tasks.
+        <div class="row">
+                    <div class="col">
+                        <h5>Newest/Oldest tasks</h5>
+                        
+                            <label class="btn btn-secondary active">
+                                <input type="radio" title="You can toggle this selection" name="date" id="new" value="New" autocomplete="off" onclick='toggleClass(this)'>Newest
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="date" id="old" value="Old" autocomplete="off" onclick='toggleClass(this)'>Oldest
+                            </label>
+                        
+                    </div>
+                    <div class="col">
+                        <h5>Filter Tasks by Label</h5>
+                        
+                            <label class="btn btn-secondary active">
+                              <input type="radio" name="label" id="personal" value="Personal" autocomplete="off" onclick='toggleClass(this)'> Personal
+                            </label>
+                            <label class="btn btn-secondary">
+                              <input type="radio" name="label" id="work" value="Work" autocomplete="off" onclick='toggleClass(this)'> Work
+                            </label>
+                            <label class="btn btn-secondary">
+                              <input type="radio" name="label" id="others" value="Others" autocomplete="off" onclick='toggleClass(this)'> Others
+                            </label>
+                        
+                    </div>
+                    <div class="col">
+                        <h5>Complete/Incomplete tasks</h5>
+                        
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="complete" id="complete" value="Complete" autocomplete="off" onclick='toggleClass(this)'>Archived
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="complete" id="incomplete" value="Incomplete" autocomplete="off" onclick='toggleClass(this)'>Incomplete
+                            </label>
+                            
+                    </div> 
+                    <div class="col">
+                        <h5>Filter by Due Date</h5>
+                        <input class="form-group-input" type="date" name="duedate" id="duedate">
+                        <button id="clearDate">Clear</button>
+                        <script>
+                            clearDate.onclick = function(){
+                                $("input[type=date]").val("")
+                            }
+                        </script>
+                    </div>            
+        </div>
+        <div class="row">
+            <button style="width: 100%" id="filter" class="btn btn-dark">Filter</button>
+        </div>
+        
+        
+        
+        <div id="fluidContainer"></div>
+        <script language='javascript' type="text/javascript">
+                            
+            function toggleClass(item){
+                $("[type='radio']").on('click', function (e) {
+                var previousValue = $(this).attr('previousValue');
+                if (previousValue == 'true') {
+                    this.checked = false;
+                    $(this).attr('previousValue', this.checked);
+                }
+                else {
+                    this.checked = true;
+                    $(this).attr('previousValue', this.checked);
+                }
+            });
             }
-            else{
-                alert('Found no tasks')
+        </script>
+            
+    <script>
+        var perfEntries = performance.getEntriesByType("navigation");
+            if (perfEntries[0].type === "back_forward") {
+                location.reload(true);
+            }
+        window.onload = function(){
+            
+            if(document.cookie.length == 0){
+                document.location.href = '/'
             }
         }
-        document.onload = fetchTasks().then((response)=>{
-            for(i=0; i<response.length; i++){
-                console.log("i", response[i])
-            }
-        })
     </script>
+    <script src='/js/viewTask.js'></script>
+    <link rel="stylesheet" href="/css/viewTask.css">    
+    </body>
 </html>

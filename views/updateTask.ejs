@@ -37,13 +37,13 @@
                 <div id="addTaskForm" class="d-flex justify-content-center">
                     <form id="addtask">
                         <div class="form-group">
-                            <h3 style="margin-bottom: 5%;">Add a New Task</h3>
+                            <h3 style="margin-bottom: 5%;">Update Task</h3>
                             <div class="row">
                                 <div class="col-3">
                                     <label for="description">Description</label>
                                 </div>
                                 <div class="col-9">
-                                    <textarea class="form-control" id="description" rows="1"></textarea>
+                                    <textarea class="form-control" id="description" rows="1"><%- task.description %></textarea>
                                 </div>
                             </div>    
                         </div>
@@ -58,10 +58,34 @@
                                         <option value="Personal">Personal</option>
                                         <option value="Work">Work</option>
                                         <option value="Others">Others</option>
-                                        <option value="Others">Shopping</option>
-                                    </select>                                    
+                                    </select>    
+                                    <script>
+                                        console.log('<%- task.label %>')
+                                        var val = '<%- task.label %>'
+                                        $("#taskLabel").val(val).change();
+                                    </script>                                
                                 </div>
-                            </div>                              
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="taskStatus">Status</label>
+                                </div>
+                                <div class="col-6">
+                                    <select style="border-radius: 25px;" name="taskStatus" id="taskStatus">
+                                        <option value="New">New</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>    
+                                    <script>
+                                        
+                                        window.onload = function(){
+                                            var s = '<%- task.taskStatus %>'
+                                            $('#taskStatus').val(s).prop('selected', true);
+                                        }
+                                        
+                                    </script>                                
+                                </div>
+                            </div>                             
                         </div> 
                         <div class="form-group">
                             <h3 style="margin-top: 10%; margin-bottom: 5%;">Set a Due Date for the Task</h3>
@@ -72,6 +96,10 @@
                                 <div class="col-6">
                                     <input class="form-group-input" type="date" name="date" id="date">
                                 </div>
+                                
+                                <script>
+                                    $("#date").val(new Date('<%- task.dueDate %>').toISOString().split('T')[0])
+                                </script>
                             </div>   
                         </div>
                         <script>
@@ -108,22 +136,22 @@
             moment.format
             //api call to store task
 
-            const apiAddTask = async (data)=> {
+            const apiAddTask = async (data, url)=> {
 
-                const response = await fetch('/tasks',{
-                    method: 'POST',
+                const response = await fetch(url,{
+                    method: 'PATCH',
                     credentials: 'same-origin',
                     headers:{
                         'Content-type':'application/json'
                     },
                     body: JSON.stringify(data)
                 })  
-                if(response.status == 201){
+                if(response.status == 200){
                     return response.json()
                 }
                 else{
                     document.getElementById("addtask").reset();
-                    alert('Invalid Input')
+                    alert(response.error)
                 }
                 
             }
@@ -132,22 +160,35 @@
             const b = document.getElementById('submit')
             b.addEventListener('click', (e)=>{
                 const label =document.getElementById('taskLabel').value 
-                console.log("label",label)
+                const taskStatus = document.getElementById('taskStatus').value
                 const description = document.getElementById('description').value
                 const date = document.getElementById('date').value
-                const parsedDate = moment(date).toISOString()
-                
-                
-                data={
+                const parsedDate = moment(date).toISOString()  
+                console.log(taskStatus) 
+                if(taskStatus == 'Completed'){
+                    console.log('here')
+                    data={
                     description: description,
                     label: label,
-                    taskStatus: 'New',
+                    taskStatus: taskStatus,
+                    dueDate: parsedDate,
+                    completed: true
+                }
+                }else{
+                    data={
+                    description: description,
+                    label: label,
+                    taskStatus: taskStatus,
                     dueDate: parsedDate
                 }
-                apiAddTask(data).then((response)=>{
-                    console.log(response)
-                    document.getElementById("addtask").reset();
-
+                }            
+                
+                const url = '/tasks/'+'<%- task._id %>'
+                console.log(url)
+                apiAddTask(data, url).then((response)=>{
+                    if(response){
+                        console.log(response)
+                    }
                 })
             })
             

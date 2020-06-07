@@ -2,81 +2,87 @@
 <html>
     <head>
         <title>Tasks</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/index.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
     </head>
     <body>
-        
-        <div class="text-center">
-            <h1 class="ml5">
-                <span class="text-wrapper">
-                  <span class="line line1"></span>
-                  <span class="letters letters-left">Task</span>
-                  <span class="letters letters-right">Manager</span>
-                  <span class="line line2"></span>
-                </span>
-              </h1>
-        </div>
-            <div class="d-flex justify-content-center">
-                
-                <div class="card">
+        <div class="sidenav">
+            <div id="login-main-text" class="login-main-text">
+                <div class="text-center">
+                    <p style="font-size: x-largevw;" class="ml5">
+                        <span class="text-wrapper">
+                          <span class="line line1"></span>
+                          <span class="letters letters-left">Task</span>
+                          <span class="letters letters-right">Manager</span>
+                          <span class="line line2"></span>
+                        </span>
+                    </p>
+                </div>               
+                <div class="text-center">
+                    <p class="lead" style="font-family:Comic Sans MS; font-size: xx-largevw;">
+                        <strong> Do you have trouble keeping track of your daily Todos?</strong>
+                    </p>
+                    <p style="font-size: xx-largevw; font-family:Comic Sans MS;">You've come to the right place.</p>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="#card"><button id="signin"class="btn btn-primary">Sign In</button></a>
+                    <p id="or" style="margin-left: 10px; color: white;">OR</p>
+                    <a href="/register"><button id="registerhere" style="margin-left: 10px;" class="btn btn-primary">Register</button></a>
+                </div>
+                <p class="text-center" style="font-size: xx-largevw; font-family:Comic Sans MS;">
+                    Task Manager helps you
+                        <p style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>Add New Tasks</p>
+                        <p style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>Update Tasks</p>
+                        <p style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>Categorize your tasks by setting labels</p>
+                        <p style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>Keep track of Due dates for your tasks</p>
+                        <p style="font-family:Comic Sans MS; font-size: largevw;"><span><i class="fa fa-check-circle fa-2x fa-fw"></i></span>View all your tasks at one place, in the way you desire</p>
+                </p>
+            </div>
+         </div>
+         <div class="main">
+            <img src= '/img/tasks.gif' class='w-100 img-fluid'> 
+            <div class="col-md-6 col-sm-12">
+               <div class="login-form">
+                   
+                <div id="card" class="card">
                     <div class="card-header">
                         <h3>Sign In</h3>
                     </div>
                     <div class="card-body">
-                        <form id='lo' method="POST">
-                            <!--input id='email' placeholder="Email address"-->
+                            <form id='lo' method="POST">
                             <div class="input-group">
                                 <div class="input-group-prepend1">
                                     <span class="input-group-addon"><i class="fa fa-envelope fa-2x fa-fw"></i></span>
+                                </div>                                
+                                    <input id="email" type="text" class="form-control w-25" name="email" placeholder="Email">  
                                 </div>
-                                
-                                
-                                  <input id="email" type="text" class="form-control w-25" name="email" placeholder="Email">
-                                
-                              </div>
-                            <!--input id='password' placeholder="Password"-->
                             <div class="input-group">
                                 <div class="input-group-prepend2">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-2x fa-fw"></i></span>
                                 </div>
+                                    <input id="password" type="password" class="form-control w-25" name="password" placeholder="Password">
+                                </div>
                                 
-                                
-                                  <input id="password" type="password" class="form-control w-25" name="password" placeholder="Password">
-                                
-                              </div>
-                             
-                              <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center">
                                 <button id='login' class="btn float-right login_btn">Login</button>
-                              </div>
+                                </div>
                         </form>
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center links">
-                            Don't have an account? <a href="#">Sign Up</a>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <a href="#">Forgot your password?</a>
+                            Don't have an account? <button class="btn btn-primary"><a style="color: black;" href="/register">Register here</a></button>
                         </div>
                     </div>
-                    
                 </div>
             </div>
-        
-        
-        
-        <script src="/js/index.js"></script>
+        </div>
+        </div> 
+    <script src="/js/index.js"></script>
     </body>
     </html>
-    
-    
-    
-        
-
-        
     

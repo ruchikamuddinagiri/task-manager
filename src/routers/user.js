@@ -11,13 +11,20 @@ router.get('/', (req,res) => {
 
 })
 //home page
-router.get('/home', (req,res)=>{
+router.get('/home', auth, (req,res)=>{
     res.render('../views/home.ejs')
     
 })
+
+//register page
+router.get('/register', (req,res)=>{
+    res.render('../views/register.ejs')
+})
+
 //add user
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
+    
 
     try{
         await user.save()
@@ -42,9 +49,9 @@ router.post('/users/login', async (req, res) => {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         //create token for the user
         const token = await user.generateAuthToken()
-        console.log(token)
+        
         res.cookie('auth_token', token)
-        console.log("login successful")
+        
         res.send({user, token})
 
     } catch(e) {
@@ -55,12 +62,12 @@ router.post('/users/login', async (req, res) => {
 //logout
 router.post('/users/logout', auth, async(req,res)=>{
     try{
+        res.clearCookie('auth_token')
         req.user.tokens = req.user.tokens.filter((token)=>{
             return token.token != req.token
         })
         await req.user.save()
-
-        res.send()
+        res.status(200).send()
     }catch(e){
         res.status(500).send()
     }
@@ -78,12 +85,12 @@ router.post('/users/logoutAll', auth, async(req, res) =>{
     
 })
 
-//get user profile
-router.get('/users/me', auth, async(req, res) => {
-    //console.log(req.header('cookie'))
-    //res.send({user:req.user})
-    res.render('../views/me.ejs', { user: req.user})
-})
+// //get user profile
+// router.get('/users/me', auth, async(req, res) => {
+//     //console.log(req.header('cookie'))
+//     //res.send({user:req.user})
+//     res.render('../views/me.ejs', { user: req.user})
+// })
 
 
 

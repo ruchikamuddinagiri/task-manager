@@ -21,6 +21,9 @@ const taskSchema = new mongoose.Schema({
         trim: true,
         enum:['New', 'In Progress', 'Completed']
     },
+    dueDate:{
+        type: Date,
+    },
     owner:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -30,7 +33,5 @@ const taskSchema = new mongoose.Schema({
     timestamps:true
 })
 
-
 const Task = mongoose.model('Task', taskSchema )
-
 module.exports = Task
