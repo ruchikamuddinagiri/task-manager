@@ -151,9 +151,7 @@ filter.onclick = function(){
             
         }
     }
-    console.log(url)
     fetchTasks(url).then((response)=>{
-        console.log(response)
         if(duedate.length != 0){
             const parsedDate = new Date(moment(duedate).toISOString())
             tasks = []
@@ -169,7 +167,6 @@ filter.onclick = function(){
                     tasks.push(response[i])
                 }
             }
-            console.log(tasks)
             if(check = 1){
                 taskBody(tasks,'archived')
                 replaceDiv()

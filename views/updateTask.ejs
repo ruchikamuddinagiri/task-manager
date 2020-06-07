@@ -60,7 +60,7 @@
                                         <option value="Others">Others</option>
                                     </select>    
                                     <script>
-                                        console.log('<%- task.label %>')
+                                        
                                         var val = '<%- task.label %>'
                                         $("#taskLabel").val(val).change();
                                     </script>                                
@@ -164,9 +164,9 @@
                 const description = document.getElementById('description').value
                 const date = document.getElementById('date').value
                 const parsedDate = moment(date).toISOString()  
-                console.log(taskStatus) 
+                
                 if(taskStatus == 'Completed'){
-                    console.log('here')
+                    
                     data={
                     description: description,
                     label: label,
@@ -184,10 +184,9 @@
                 }            
                 
                 const url = '/tasks/'+'<%- task._id %>'
-                console.log(url)
+                
                 apiAddTask(data, url).then((response)=>{
                     if(response){
-                        console.log(response)
                     }
                 })
             })

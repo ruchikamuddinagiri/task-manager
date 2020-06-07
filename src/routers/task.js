@@ -16,8 +16,7 @@ router.get('/viewTask', auth, (req,res)=>{
 
 //add task
 router.post('/tasks', auth, async (req, res) => {
-    console.log(req.body)
-    
+   
     const task = new Task({
         ...req.body,
         owner: req.user._id
@@ -107,7 +106,7 @@ router.get('/tasks/:id', auth, async (req, res) => {
 
 router.patch('/tasks/:id', auth, async (req, res) => {
     //check for valid updates
-    console.log(req.body)
+    
     const updates = Object.keys(req.body)
     const allUpdates = ['description', 'completed', 'label', 'taskStatus', 'dueDate']
     const isValidUpdate = updates.every((update) => allUpdates.includes(update))
@@ -130,7 +129,7 @@ router.patch('/tasks/:id', auth, async (req, res) => {
         res.send(task)
         }
     }catch(e){
-        console.log(e)
+        
         //send 400
         res.status(400).send({error:e})
     }

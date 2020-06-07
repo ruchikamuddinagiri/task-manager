@@ -132,7 +132,6 @@
             const b = document.getElementById('submit')
             b.addEventListener('click', (e)=>{
                 const label =document.getElementById('taskLabel').value 
-                console.log("label",label)
                 const description = document.getElementById('description').value
                 const date = document.getElementById('date').value
                 const parsedDate = moment(date).toISOString()
@@ -145,7 +144,6 @@
                     dueDate: parsedDate
                 }
                 apiAddTask(data).then((response)=>{
-                    console.log(response)
                     document.getElementById("addtask").reset();
 
                 })

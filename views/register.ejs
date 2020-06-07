@@ -128,9 +128,8 @@
                     const emailValue = email.value
                     const passwordValue = password.value
                     event.preventDefault()
-                    console.log(ageValue.length)
                     if(ageValue.length == 0){
-                        console.log(age)
+                        
                         registerUser({name:nameValue, email:emailValue, password:passwordValue}).then((response)=>{
                             if(response){
                                 document.location.href = '/home'
@@ -140,7 +139,7 @@
                     }
                     else{
                         registerUser({name:nameValue, age:ageValue, email:emailValue, password:passwordValue}).then((response)=>{
-                            console.log(response)
+                            
                             if(response){
                                 document.location.href = '/home'
                             }
