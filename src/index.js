@@ -11,7 +11,7 @@ const User = require('./models/user.js')
 const Task = require('./models/task.js')
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 //middleware for maintenance
 
 // app.use((req, res, next) => {

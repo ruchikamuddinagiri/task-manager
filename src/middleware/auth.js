@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
         
 
         //decode the token against the string provided for creating the sign in models/user.js
-        const decoded = jwt.verify(token, 'thisismynodecourse')
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
         //while creating the sign, we had used the user's id. 
         //so, decoded will have the user's id as the _id property

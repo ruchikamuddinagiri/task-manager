@@ -7,7 +7,7 @@ const Task = require('../models/task')
 const userSchema = new mongoose.Schema({
     name:{
         type: String,
-        required: true,
+        required: true, 
         trim: true,
     },
     email:{
@@ -74,7 +74,7 @@ userSchema.methods.toJSON = function(){
 //auth token
 userSchema.methods.generateAuthToken = async function() {
     const user = this
-    const token = jwt.sign({_id: user._id.toString() }, 'thisismynodecourse')
+    const token = jwt.sign({_id: user._id.toString() }, process.env.JWT_SECRET)
     user.tokens = user.tokens.concat({token})
     await user.save()
     return token
