@@ -78,7 +78,6 @@ userSchema.methods.generateAuthToken = async function() {
     user.tokens = user.tokens.concat({token})
     await user.save()
     return token
-
 }
 
 //userSchema.statics fns can be accessed directly by model

@@ -50,6 +50,7 @@ const apiFetch = async (data)=>{
     loginButton.addEventListener('click', (e)=>{
         e.preventDefault()
          apiFetch({email: email.value, password: password.value}).then((response)=>{
+           console.log(response)
              if(response){
                  document.location.href = '/home'
              }
