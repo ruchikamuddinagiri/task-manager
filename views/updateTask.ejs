@@ -9,6 +9,8 @@
         <script src="/js/jquery.particleground.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/css/ns.css">
+        <link rel="stylesheet" href="/css/ns-overrides.css">
         <style>
             canvas{
                 background-color: #16a085;
@@ -113,7 +115,9 @@
                     <button id="submit" class="w-25 btn btn-dark"><span style="font-size: x-large;">Save</span></button>
                 </div>
             </div>     
-        
+        <script src="/js/classie.js"></script>
+        <script src="/js/modernizr.custom.js"></script>
+        <script src="/js/notificationFx.js"></script>
         <script>
             var perfEntries = performance.getEntriesByType("navigation");
             if (perfEntries[0].type === "back_forward") {
@@ -187,6 +191,17 @@
                 
                 apiAddTask(data, url).then((response)=>{
                     if(response){
+                        let notification = new NotificationFx({
+                        wrapper: document.body,
+                        message : 'Task updated successfully!',
+                        layout : 'growl',
+                        effect : 'slide',
+                        type : 'success',
+                        ttl : 3000,
+                        // callbacks
+                        onClose : function() { document.location.href = '/viewTask' },
+                    })
+                    notification.show()
                     }
                 })
             })
