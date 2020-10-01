@@ -24,8 +24,7 @@ router.get('/register', (req,res)=>{
 //add user
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
-    
-
+    console.log(user)
     try{
         await user.save()
         //create a token for the new user
@@ -36,6 +35,7 @@ router.post('/users', async (req, res) => {
         
         res.status(201).send({user, token})
     } catch(e){
+        console.log(e)
         res.status(400).send(e)
     }
 })

@@ -3,6 +3,7 @@ const fetchTasks = async (url)=>{
         method:'GET'
     })
     if(response.status == 200){
+        console.log(response)
         return response.json()
     }
     else{
@@ -151,7 +152,9 @@ filter.onclick = function(){
             
         }
     }
+    console.log(url)
     fetchTasks(url).then((response)=>{
+        
         if(duedate.length != 0){
             const parsedDate = new Date(moment(duedate).toISOString())
             tasks = []
@@ -167,7 +170,7 @@ filter.onclick = function(){
                     tasks.push(response[i])
                 }
             }
-            if(check = 1){
+            if(check == 1){
                 taskBody(tasks,'archived')
                 replaceDiv()
             }
