@@ -1,6 +1,14 @@
 body {
     font-family: "Lato", sans-serif;
 }
+.ns-box{
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    z-index: 10;
+    color: #000000;
+    background: #FFF;
+}
 .card{ 
     height: max-content;
     width: max-content;

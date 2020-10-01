@@ -35,6 +35,6 @@ app.use(cookieParser())
 
 //set up server
 app.listen(port, () => {
-    console.log("server is up on port 3000")
+    console.log("server is up on port", process.env.PORT)
 })
 

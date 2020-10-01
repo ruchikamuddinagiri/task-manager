@@ -52,7 +52,18 @@ const apiFetch = async (data)=>{
          apiFetch({email: email.value, password: password.value}).then((response)=>{
            console.log(response)
              if(response){
-                 document.location.href = '/home'
+              let notification = new NotificationFx({
+                wrapper: document.body,
+                message : 'Just a second...',
+                layout : 'growl',
+                effect : 'slide',
+                type : 'success',
+                ttl : 3000,
+                // callbacks
+                onClose : function() { document.location.href = '/home' },
+            })
+            notification.show()
+                 //document.location.href = '/home'
              }
          })
         //.then((response)=>{
